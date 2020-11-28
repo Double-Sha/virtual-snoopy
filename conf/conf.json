@@ -1,0 +1,14 @@
+{
+  "email": {
+    "account": "send_by_cloud@163.com",
+    "password": "VIKVJJOFPPUJAIYK",
+    "host": "smtp.163.com",
+    "master": ["maoshasix@163.com"],
+    "to_list": ["maoshasix@163.com"],
+    "cc_list": ["shasha.mao@uaes.com"]
+  },
+  "master": {
+    "me": "snoopy",
+    "darling": ""
+  }
+}
