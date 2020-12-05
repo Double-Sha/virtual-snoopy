@@ -7,9 +7,3 @@
 # @File : __init__.py.py
 # @Project : virtual-snoopy
 # @Tool : PyCharm
-
-
-from config_utils import Config
-
-temp = Config()
-config = temp.get_config(r"../conf/conf.json")
