@@ -20,7 +20,8 @@ class Config():
         pass
 
     @staticmethod
-    def get_config(config_path):
+    def get_config(config_path=r"../conf/conf.json"):
+        """默认读取/conf/conf.json的文件默认"""
 
         with open(config_path) as fp:
             config = Bunch(load(fp))
@@ -30,9 +31,13 @@ class Config():
 
 def main():
     temp = Config()
-    config = temp.get_config(r"../conf/conf.json")
+    config = temp.get_config()
     print(config.email["account"])
 
 
 if __name__ == "__main__":
     main()
+
+else:
+    # 实例化配置类对象,并直接获取配置信息，供其他模块调用
+    config = Config().get_config()

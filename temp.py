@@ -33,6 +33,10 @@ def main():
         t = threading.Thread(target=ThreadFunc("tempname"), )# 传递一个可调用类的实例
         t.start()  # 开始所有的线程
 
+    print("\n")
+    print("\n")
+    print("\n")
+    print("\n")
 
     print('任务完成于：', ctime())
 

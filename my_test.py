@@ -33,15 +33,16 @@ def func():
     # print("定时任务每5秒一次", datetime.datetime.now(), end="\n")
 
 
-def func2():
+def func2(str):
     a = 1+2
     a = 166 * 244 * 124 / 2.2
     a = 166 * 244 * 124 / 2.2
     a = 166 * 244 * 124 / 2.2
     start = time.time()
-    temp = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
-    temp2 = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
-    temp3 = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
+    print(str)
+    # temp = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
+    # temp2 = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
+    # temp3 = pd.read_csv(r"E:\06_Dataset\02_EV_data\02_EV_Dataset\02_pcode\租赁乘用车_vin_DESC.csv")
     print("耗时", time.time() - start)
     print(a)
     pass
@@ -56,7 +57,7 @@ def func2():
 # schedule.every(7).seconds.do(run_threaded, func, "5second")
 
 # 回调函数run_threaded，回调函数的传参func2，"10second"
-schedule.every(4).seconds.do(create_thread_for_task, (func2,))
+schedule.every(2).seconds.do(create_thread_for_task, func2, ("name",), "thread_name")
 
 schedule.run_pending()
 count = 0
