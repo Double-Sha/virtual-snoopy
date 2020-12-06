@@ -11,6 +11,7 @@
 
 from json import load
 from bunch import Bunch
+import os
 
 
 class Config():
@@ -21,7 +22,9 @@ class Config():
 
     @staticmethod
     def get_config(config_path=r"../conf/conf.json"):
-        """默认读取/conf/conf.json的文件默认"""
+        """要求读取conf文件夹下conf.json文件
+        在函数调用过程中，当前路径.代表的是被执行脚本文件所在的路径，而不是该函数所在的脚本文件的所在路径
+        """
 
         with open(config_path) as fp:
             config = Bunch(load(fp))
@@ -37,7 +40,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-else:
-    # 实例化配置类对象,并直接获取配置信息，供其他模块调用
-    config = Config().get_config()

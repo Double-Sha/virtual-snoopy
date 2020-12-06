@@ -11,17 +11,20 @@
 
 import yagmail
 import time
-from utils.config_utils import config
+from util.config_utils import Config
 
 
 class SnoopyMailBox:
     """邮箱类"""
 
-    def __init__(self, config_object=config):
+    def __init__(self, config_object=Config):
         """
-        初始化邮箱对象
-        :param config: 配置类
+        基于配置文件创建邮箱对象
+        :param Config: 配置类
         """
+
+        # 生成配置字典
+        config = config_object.get_config(config_path=r"../conf/conf.json")
         self.account = config.email["account"]
         self.password = config.email["password"]
         self.host = config.email["host"]
@@ -55,12 +58,10 @@ class SnoopyMailBox:
 
 
 def main():
-    snoopy_mail_box = SnoopyMailBox(config_object=config)
-    snoopy_mail_box.send_to_master()
+    snoopy_mail_box = SnoopyMailBox(config_object=Config)
+    snoopy_mail_box.send_to_master(contents="this is a test letter")
 
 
 if __name__ == "__main__":
     main()
-else:
-    # 实例化邮箱类对象, 供其他模块调用
-    snoopy_mail_box = SnoopyMailBox(config_object=config)
+

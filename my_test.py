@@ -16,7 +16,7 @@ import threading
 import pandas as pd
 
 # 工具类导入
-from utils.thread_utils import create_thread_for_task
+from util.thread_utils import create_thread_for_task
 
 # 类的生成
 def func():
