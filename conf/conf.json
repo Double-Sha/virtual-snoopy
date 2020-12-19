@@ -14,5 +14,12 @@
     "all": "Dear all",
     "owner": "Snoopy",
     "darling": "Darling"
+  },
+  "mysql": {
+    "host": "10.100.10.23",
+    "user": "admin",
+    "passwd": "Mjg0N2IyM2Rh",
+    "database": "uaes_iot_car_admin",
+    "charset": "utf8"
   }
 }

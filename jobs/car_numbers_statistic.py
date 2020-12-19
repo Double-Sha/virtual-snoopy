@@ -14,26 +14,28 @@ import os
 import sys
 import util
 from utils.email_utils import SnoopyMailBox
-from conf import email_config
+from conf import email_config, mysql_config
 
 
 class CarNumberInGwmPrd:
     """
-    获取GWM生产环境最近7天的车辆数,包括车辆注册数,车辆实际接入数,车辆每日增长数
+    获取GWM生产环境最近7天的车辆数,包括车辆注册数,车辆实际接入数,车辆每日增长数，并邮件发送到指定账号
     """
 
-    def __init__(self, past_days: int=10):
+    def __init__(self, mysql_config, past_days: int=10):
         """
-        :param past_days: 相获取过去几天的注册车辆和接入车辆
+        初始化类
+        :param past_days: 相获取过去几天的注册车辆和接入车辆，默认10天
+        :param mysql_config: mysql数据库配置类
         """
         self.past_days = past_days  # 输入为n,则常看过去n-3天的车辆接入情况
         self.today = None  # 今日日期
+        self.mysql_config = mysql_config
 
     def get_date_of_past(self):
         """
         返回过去10天的凌晨时间点，包括今天，共10个时间点，如'2020-12-03 23:59:59'
-
-        :return:
+        :return: past_days_list
         """
 
         date_list = [datetime.datetime.now() - datetime.timedelta(days=i) for i in range(0, self.past_days, 1)]
@@ -44,15 +46,19 @@ class CarNumberInGwmPrd:
         return past_days_list
 
     def get_past_days_register_car_number(self):
-        """"""
+        """
+        连接mysql，获取GWM生产环境最近7天的车辆注册数,车辆每日增长数
+
+        :return: DataFrame
+        """
 
         # 连接mysql
-        host = "10.100.10.23"
-        user = "admin"
-        passwd = "Mjg0N2IyM2Rh"
-        database = "uaes_iot_car_admin"
-        charset = "utf8"
-        connect = pymysql.connect(host=host, user=user, password=passwd, database=database, charset=charset)
+        connect = pymysql.connect(host=self.mysql_config.host,
+                                  user=self.mysql_config.user,
+                                  password=self.mysql_config.passwd,
+                                  database=self.mysql_config.database,
+                                  charset=self.mysql_config.charset)
+
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)
 
         # 参数定义
@@ -86,15 +92,18 @@ class CarNumberInGwmPrd:
         return past_days_register_car_df.iloc[1:-1, :]
 
     def get_past_days_actual_car_number(self):
-        """"""
+        """
+        连接mysql，获取GWM生产环境最近7天的车辆接入数,车辆每日接入的增长数
+
+        :return: DataFrame
+        """
 
         # 连接mysql
-        host = "10.100.10.23"
-        user = "admin"
-        passwd = "Mjg0N2IyM2Rh"
-        database = "uaes_iot_car_admin"
-        charset = "utf8"
-        connect = pymysql.connect(host=host, user=user, password=passwd, database=database, charset=charset)
+        connect = pymysql.connect(host=self.mysql_config.host,
+                                  user=self.mysql_config.user,
+                                  password=self.mysql_config.passwd,
+                                  database=self.mysql_config.database,
+                                  charset=self.mysql_config.charset)
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)
 
         # 参数定义
@@ -129,16 +138,18 @@ class CarNumberInGwmPrd:
 
         return past_days_actual_car_df.iloc[1:-1, :]
 
-    def to_excel(self, SnoopyMailBox, email_config):
+    def send_excel_to_mailbox(self, SnoopyMailBox, email_config):
         """
+        获取GWM生产环境最近7天的车辆数,包括车辆注册数,车辆实际接入数,车辆每日增长数，并邮件发送到指定账号
+        :param SnoopyMailBox: 邮箱类
+        :param email_config: 邮箱配置信息，作为邮箱类对象生成的输入
 
-        :param SnoopyMailBox: 邮箱类对象
         :return:
         """
 
         # 得出车辆注册数和接入数
-        # register_df = self.get_past_days_register_car_number()
-        # actual_df = self.get_past_days_actual_car_number()
+        # register_df = self.get_past_days_register_car_number(mysql_config)
+        # actual_df = self.get_past_days_actual_car_number(mysql_config)
         register_df = util.TEMP_DF
         actual_df = util.TEMP_DF
 
@@ -162,7 +173,7 @@ class CarNumberInGwmPrd:
 
 
 def main():
-    CarNumberInGwmPrd().to_excel(SnoopyMailBox, email_config)
+    CarNumberInGwmPrd(mysql_config, 10).send_excel_to_mailbox(SnoopyMailBox, email_config)
 
 
 if __name__ == "__main__":

@@ -21,3 +21,7 @@ email_config = Bunch(config.email)
 # 称呼类
 title_config = Bunch(config.title)
 # print(title_config.owner)
+
+# GWM生产数据数据库类
+mysql_config = Bunch(config.mysql)
+# print(title_config.owner)

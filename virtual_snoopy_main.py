@@ -19,9 +19,11 @@ import pandas as pd
 from utils.thread_utils import create_thread_for_task
 from utils.email_utils import SnoopyMailBox
 
+
 # 主函数
 def main():
     # 回调函数run_threaded，回调函数的传参func2，"10second"
+    schedule.every(2).seconds.do(create_thread_for_task, func2, ("name",), "thread_name")
     schedule.every(2).seconds.do(create_thread_for_task, func2, ("name",), "thread_name")
 
     count = 0

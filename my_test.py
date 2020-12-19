@@ -52,8 +52,6 @@ def func2(str):
 # 定义
 
 
-
-
 # schedule.every(7).seconds.do(run_threaded, func, "5second")
 
 # 回调函数run_threaded，回调函数的传参func2，"10second"
