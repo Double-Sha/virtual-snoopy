@@ -16,8 +16,8 @@ import threading
 import pandas as pd
 
 # 工具类导入
-from util.thread_utils import create_thread_for_task
-from util.email_utils import SnoopyMailBox
+from utils.thread_utils import create_thread_for_task
+from utils.email_utils import SnoopyMailBox
 
 # 主函数
 def main():

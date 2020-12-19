@@ -92,4 +92,5 @@ SPM 发送的邮件内容包含了未被许可的信息，或被系统识别为�
 please see http://mail.163.com/help/help_spam_16.htm?ip=101.228.138.140&hostid=smtp14&time=1607238204')
 
 
-
+## 4 配置文件用法
+当"print os.path.dirname(__file__)"所在脚本是以完整路径被运行的， 那么将输出该脚本所在的文件夹完整路径，当"print os.path.dirname(__file__)"所在脚本是以相对路径被运行的， 那么将输出空目录，比如：

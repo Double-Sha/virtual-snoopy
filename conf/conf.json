@@ -1,14 +1,18 @@
 {
   "email": {
+    "?account": "邮箱账号",
     "account": "send_by_cloud@163.com",
+    "?password": "邮箱密码",
     "password": "VIKVJJOFPPUJAIYK",
+    "?host": "邮箱域名",
     "host": "smtp.163.com",
     "master": ["maoshasix@163.com"],
     "to_list": ["maoshasix@163.com"],
-    "cc_list": ["shasha.mao@uaes.com"]
+    "car_numbers_info_to_list": ["shasha.mao@uaes.com"]
   },
-  "master": {
-    "me": "snoopy",
-    "darling": ""
+  "title": {
+    "all": "Dear all",
+    "owner": "Snoopy",
+    "darling": "Darling"
   }
 }

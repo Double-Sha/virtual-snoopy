@@ -26,7 +26,7 @@ class Config():
         在函数调用过程中，当前路径.代表的是被执行脚本文件所在的路径，而不是该函数所在的脚本文件的所在路径
         """
 
-        with open(config_path) as fp:
+        with open(config_path, encoding="utf-8") as fp:
             config = Bunch(load(fp))
 
         return config
