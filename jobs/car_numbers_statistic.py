@@ -12,7 +12,6 @@ import pymysql
 import datetime
 import os
 import sys
-import util
 from utils.email_utils import SnoopyMailBox
 from conf import email_config, mysql_config
 
@@ -148,10 +147,10 @@ class CarNumberInGwmPrd:
         """
 
         # 得出车辆注册数和接入数
-        # register_df = self.get_past_days_register_car_number(mysql_config)
-        # actual_df = self.get_past_days_actual_car_number(mysql_config)
-        register_df = util.TEMP_DF
-        actual_df = util.TEMP_DF
+        register_df = self.get_past_days_register_car_number()
+        actual_df = self.get_past_days_actual_car_number()
+        # register_df = util.TEMP_DF
+        # actual_df = util.TEMP_DF
 
         # 写入文件
         sys.path[0] = os.path.dirname(__file__)

@@ -8,7 +8,7 @@
     "host": "smtp.163.com",
     "master": ["maoshasix@163.com"],
     "to_list": ["maoshasix@163.com"],
-    "car_numbers_info_to_list": ["shasha.mao@uaes.com"]
+    "car_numbers_info_to_list": ["shasha.mao@uaes.com","maoshasix@163.com"]
   },
   "title": {
     "all": "Dear all",
