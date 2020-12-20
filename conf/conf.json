@@ -8,12 +8,14 @@
     "host": "smtp.163.com",
     "master": ["maoshasix@163.com"],
     "to_list": ["maoshasix@163.com"],
-    "car_numbers_info_to_list": ["shasha.mao@uaes.com","maoshasix@163.com"]
+    "car_numbers_info_to_list": ["shasha.mao@uaes.com","maoshasix@163.com"],
+    "meal_reminder_to_list": ["15250966177@163.com"],
+    "meal_reminder_cc_list": ["maoshasix@163.com"]
   },
   "title": {
     "all": "Dear all",
     "owner": "Snoopy",
-    "darling": "Darling"
+    "darling_title_list": ["Darling","亲爱的","小仙女", "宝宝", "孟宝宝", "南医大最靓的妞", "医学界著名女博士"]
   },
   "mysql": {
     "host": "10.100.10.23",
@@ -21,5 +23,20 @@
     "passwd": "Mjg0N2IyM2Rh",
     "database": "uaes_iot_car_admin",
     "charset": "utf8"
+  },
+  "log": {
+    "label": "virtual-snoopy",
+    "?log_folder_path": "存放log日志的文件夹路径，在init文件中将自动生成",
+    "log_folder_path": "log日志所在文件夹的绝对路径，在init文件中将自动生成",
+    "log_name": "virtual_snoopy",
+    "level":"info",
+    "max_size_of_single_log_file": 0.02,
+    "total_number_of_log_files": 3
+  },
+  "path": {
+    "root_folder_path": "程序根目录绝对路径，在init文件中将自动生成",
+    "config_folder_path": "配置文件所在文件夹的绝对路径，在init文件中将自动生成",
+    "resources_folder_path": "资源文件所在文件夹的绝对路径，在init文件中将自动生成",
+    "log_folder_path": "log日志所在文件夹的绝对路径，在init文件中将自动生成"
   }
 }
