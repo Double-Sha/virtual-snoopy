@@ -161,7 +161,7 @@ class CarNumberInGwmPrd:
 
         # 编辑邮件并发送
         subject = "近7天GWM生产环境车辆注册数和实际接入数"
-        contents = "%s为%d，近七天，平均每日车辆注册数为%d\n%s为%d，近七天，平均每日车辆接入数为%d" % \
+        contents = "%s为%d，近七天，平均每日车辆注册数为%d\n\n%s为%d，近七天，平均每日车辆接入数为%d" % \
                    (register_df.index[-1], register_df.iloc[-1, -2], register_df.iloc[:, -1].mean(),
                     actual_df.index[-1], actual_df.iloc[-1, -2], actual_df.iloc[:, -1].mean())
 

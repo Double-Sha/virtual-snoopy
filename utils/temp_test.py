@@ -10,6 +10,6 @@
 
 from conf import email_config, title_config
 from utils.email_utils import SnoopyMailBox
-from jobs.car_numbers_statistic import CarNumberInGwmPrd
+from tasks.car_numbers_statistic import CarNumberInGwmPrd
 
 print(CarNumberInGwmPrd().to_excel(SnoopyMailBox, email_config))
