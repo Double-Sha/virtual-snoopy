@@ -7,14 +7,22 @@
 # @File : temp_test.py
 # @Tool : PyCharm
 
-import logging
+import schedule
+import time
+import traceback
 
-logging.basicConfig(level=logging.INFO,
-                    filename="11.log",
-                    filemode='a',
-                    format='%(asctime)s - %(levelname)s: %(message)s')
+# 配置文件类导入
+from conf import email_config, path_config, title_config, log_config, mysql_config
 
-logging.basicConfig(level=logging.INFO,
-                    filename="12.log",
-                    filemode='a',
-                    format='%(asctime)s - %(levelname)s: %(message)s')
+# 工具类导入
+from utils.thread_utils import create_thread_for_task
+from utils.email_utils import SnoopyMailBox
+from utils.log_utils import MyLog
+from utils.test_utils import demo_error
+
+snoopy_logger = MyLog(log_config=log_config)
+
+try:
+    demo_error()
+except Exception as e:
+    print(traceback.format_exc())

@@ -10,33 +10,45 @@
 
 
 import os
-from conf import path_config, title_config, email_config
 from random import randint
 import time
-from utils.email_utils import SnoopyMailBox
+import traceback
 
 
 class MealReminder:
 
-    def __init__(self):
+    def __init__(self, title_config, path_config, email_config, logger):
+        """
+        对象初始化
+
+        :param title_config: 称谓配置对象实例
+        :param path_config: 路径配置对象实例
+        :param email_config: 邮箱配置对象实例
+        :param logger: 日志对象实例
+        """
+
+        self.title_config = title_config
+        self.path_config = path_config
+        self.email_config = email_config
+        self.mylog = logger
         pass
 
-    @staticmethod
-    def select_a_title():
+    def select_a_title(self):
         """根据配置文件中的darling_title_list信息，随机返回一个称呼"""
 
-        return title_config.darling_title_list[randint(0, len(title_config.darling_title_list) - 1)]
+        return self.title_config.darling_title_list[randint(0, len(self.title_config.darling_title_list) - 1)]
 
-    @staticmethod
-    def select_a_picture(meal: str = "breakfast"):
+    def select_a_picture(self, meal: str = "breakfast"):
         """
         指定用餐类型，从相应的文件夹中随机选择一张图片，并返回其绝对路径
+
         :param meal: 用餐类型，"breakfast", "lunch", "dinner"
+
         :return: aim_file_path: 随机选择出来的图片的绝对路径
         """
 
         # 指定文件夹，将从该文件夹中随机选择图片
-        aim_picture_folder = os.path.join(path_config.resources_folder_path,
+        aim_picture_folder = os.path.join(self.path_config.resources_folder_path,
                                           "meal_reminder", meal)
 
         # 获取该文件夹下的图片名字列表
@@ -51,7 +63,9 @@ class MealReminder:
     def generate_contents(meal: str = "breakfast"):
         """
         指定用餐类型，从相应的文件夹中随机选择一张图片，并返回其绝对路径
+
         :param meal: 用餐类型，"breakfast", "lunch", "dinner"
+
         :return: aim_file_path: 随机选择出来的图片的绝对路径
         """
 
@@ -67,13 +81,13 @@ class MealReminder:
                    "【午餐小贴士】\n午餐（又名午饭、中餐、中饭等等），是指大约在中午或者之后一段时间所用的一餐。" \
                    "在中国大陆，人们认为中餐是一天中最重要的一餐，也是食物和能量的主要补充"
 
-    def send_meal_reminder(self, snoopy_mail_box, meal: str = "breakfast", to=None):
+    def send_meal_reminder(self, snoopy_mailbox, meal: str = "breakfast", to=None):
         """
         编辑邮件，并发送邮件，邮件包含附件
-        :param snoopy_mail_box: 邮箱实例
+
+        :param snoopy_mailbox: 邮箱实例
         :param meal: 用餐类型，"breakfast", "lunch", "dinner"
         :param to: 邮件发送列表
-        :return:
         """
 
         # 编辑邮件正文
@@ -84,21 +98,43 @@ class MealReminder:
         if to is not None:
             pass
         else:
-            to = email_config.meal_reminder_to_list
+            to = self.email_config.meal_reminder_to_list
 
         # 发送邮件
-        snoopy_mail_box.email_instance.send(to=to,
-                                            cc=email_config.meal_reminder_cc_list,
-                                            subject="孟艺璇，你老公喊你吃饭啦！",
-                                            contents=contents,
-                                            attachments=self.select_a_picture(meal))
+        try:
+            snoopy_mailbox.email_instance.send(to=to,
+                                               cc=self.email_config.meal_reminder_cc_list,
+                                               subject="孟艺璇，你老公喊你吃饭啦！",
+                                               contents=contents,
+                                               attachments=self.select_a_picture(meal))
+        except Exception as e:
+            self.mylog.logger.error(e)
+            self.mylog.logger.error(traceback.format_exc())
 
-        print("邮件已发送")
+        self.mylog.logger.info("%s邮件已发送" % meal)
 
 
 def main():
-    snoopy_mailbox = SnoopyMailBox(email_config)
-    MealReminder().send_meal_reminder(snoopy_mailbox, meal="dinner")
+    """CarNumberStatistic类调用方法"""
+
+    # 模块导入
+    from conf import path_config, title_config, email_config, log_config
+    from utils.email_utils import SnoopyMailBox
+    from utils.log_utils import MyLog
+
+    # 邮箱对象实例生成，日志对象实例生成
+    snoopy_mailbox = SnoopyMailBox(email_config=email_config)
+    snoopy_logger = MyLog(log_config=log_config)
+
+    # MealReminder对象实例生成，及方法调用
+    meal_reminder = MealReminder(title_config=title_config,
+                                 path_config=path_config,
+                                 email_config=email_config,
+                                 logger=snoopy_logger)
+
+    meal_reminder.send_meal_reminder(snoopy_mailbox=snoopy_mailbox,
+                                     meal="breakfast",
+                                     to=None)
 
 
 if __name__ == "__main__":

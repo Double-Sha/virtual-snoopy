@@ -9,7 +9,8 @@
     "master": ["maoshasix@163.com"],
     "to_list": ["maoshasix@163.com"],
     "car_numbers_info_to_list": ["shasha.mao@uaes.com","maoshasix@163.com"],
-    "meal_reminder_to_list": ["15250966177@163.com"],
+    "meal_reminder_to_list1": ["15250966177@163.com"],
+    "meal_reminder_to_list": ["maoshasix@163.com"],
     "meal_reminder_cc_list": ["maoshasix@163.com"]
   },
   "title": {
@@ -30,8 +31,9 @@
     "log_folder_path": "log日志所在文件夹的绝对路径，在init文件中将自动生成",
     "log_name": "virtual_snoopy",
     "level":"info",
-    "max_size_of_single_log_file": 0.02,
-    "total_number_of_log_files": 3
+    "max_size_of_single_log_file": 5,
+    "total_number_of_log_files": 6,
+    "backup_email_account": ["maoshasix@163.com"]
   },
   "path": {
     "root_folder_path": "程序根目录绝对路径，在init文件中将自动生成",
