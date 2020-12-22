@@ -51,17 +51,17 @@ def main():
     # 任务安排
     # 【一】1.1
     schedule.every().monday.at("08:30").\
-        do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "breakfast"), "MealReminder")
+        do(create_thread_for_task, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "breakfast"), "MealReminder")
     # 【一】1.2
     schedule.every().wednesday.at("11:30").\
-        do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "lunch"), "MealReminder")
+        do(create_thread_for_task, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "lunch"), "MealReminder")
     # 【一】1.3
     schedule.every().friday.at("17:00").\
-        do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "dinner"), "MealReminder")
+        do(create_thread_for_task, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "dinner"), "MealReminder")
 
     # 【二】2.1 GWM生产环境车辆接入数检查
     schedule.every().days.at("09:30").\
-        do(create_thread_for_task, car_number_statistic.send_excel_to_mailbox, (snoopy_mailbox, email_config, path_config), "CarNumberStatistic")
+        do(create_thread_for_task, car_number_statistic.send_car_number_excel_to_mailbox, (snoopy_mailbox, email_config, path_config), "CarNumberStatistic")
 
     snoopy_logger.logger.info("【successful】jobs已添加")
 
@@ -72,13 +72,14 @@ def main():
             schedule.run_pending()  # 运行所有可以运行的任务
             if count == 60:
                 snoopy_logger.check_size_log(snoopy_mailbox=snoopy_mailbox)
-                count = 0  # 每过60次 × 40s＝40min检查一下日志大小
+                count = 0  # 每过60次 × 45s＝40min检查一下日志大小
+                snoopy_logger.logger.info("log文件夹及log文件检查")
         except Exception as e:
             print(e)
             snoopy_logger.logger.error(e)
             snoopy_logger.logger.error(traceback.format_exc())
         finally:
-            time.sleep(40)
+            time.sleep(45)
             count += 1
 
 

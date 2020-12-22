@@ -71,7 +71,7 @@ class MyLog:
         self.logger = logging.Logger(name=self.log_config.label, level=self.level)
         self.logger.addHandler(self.file)
 
-    def backup_by_email(self, snoopy_mailbox, backup_file_path):
+    def send_backup_log_to_mailbox(self, snoopy_mailbox, backup_file_path):
         """
         将某个日志文件发送到邮件（备份用）
 
@@ -140,8 +140,8 @@ class MyLog:
 
         if len(self.history_log_file_path_list) > self.log_config.total_number_of_log_files:
             # 先备份
-            self.backup_by_email(snoopy_mailbox=snoopy_mailbox,
-                                 backup_file_path=self.history_log_file_path_list[0])
+            self.send_backup_log_to_mailbox(snoopy_mailbox=snoopy_mailbox,
+                                            backup_file_path=self.history_log_file_path_list[0])
             # 删除文件
             os.remove(self.history_log_file_path_list[0])
 

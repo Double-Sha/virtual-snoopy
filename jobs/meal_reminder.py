@@ -81,7 +81,7 @@ class MealReminder:
                    "【午餐小贴士】\n午餐（又名午饭、中餐、中饭等等），是指大约在中午或者之后一段时间所用的一餐。" \
                    "在中国大陆，人们认为中餐是一天中最重要的一餐，也是食物和能量的主要补充"
 
-    def send_meal_reminder(self, snoopy_mailbox, meal: str = "breakfast", to=None):
+    def send_meal_reminder_to_mailbox(self, snoopy_mailbox, meal: str = "breakfast", to=None):
         """
         编辑邮件，并发送邮件，邮件包含附件
 
@@ -89,6 +89,8 @@ class MealReminder:
         :param meal: 用餐类型，"breakfast", "lunch", "dinner"
         :param to: 邮件发送列表
         """
+
+        self.mylog.logger.info("方法send_car_number_excel_to_mailbox开始被调用")
 
         # 编辑邮件正文
         ending = "\n\nYours\n上海外滩最靓的仔\n%s\n" % time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
@@ -132,9 +134,9 @@ def main():
                                  email_config=email_config,
                                  logger=snoopy_logger)
 
-    meal_reminder.send_meal_reminder(snoopy_mailbox=snoopy_mailbox,
-                                     meal="breakfast",
-                                     to=None)
+    meal_reminder.send_meal_reminder_to_mailbox(snoopy_mailbox=snoopy_mailbox,
+                                                meal="breakfast",
+                                                to=None)
 
 
 if __name__ == "__main__":

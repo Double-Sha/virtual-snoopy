@@ -143,11 +143,9 @@ class CarNumberStatistic:
         past_days_actual_car_df["单日接入车辆增长数"] = past_days_actual_car_df["五个车型总接入数据"] - past_days_actual_car_df[
             "五个车型总接入数据"].shift(1)
 
-
-
         return past_days_actual_car_df.iloc[1:-1, :]
 
-    def send_excel_to_mailbox(self, snoopy_mailbox, email_config, path_config, to=None):
+    def send_car_number_excel_to_mailbox(self, snoopy_mailbox, email_config, path_config, to=None):
         """
         获取GWM生产环境最近7天的车辆数,包括车辆注册数,车辆实际接入数,车辆每日增长数，并邮件发送到指定账号
 
@@ -158,6 +156,7 @@ class CarNumberStatistic:
         """
 
         # 得出车辆注册数和接入数
+        self.mylog.logger.info("方法send_car_number_excel_to_mailbox开始被调用")
         register_df = self.get_past_days_register_car_number()
         actual_df = self.get_past_days_actual_car_number()
         # register_df = util.TEMP_DF
@@ -211,10 +210,10 @@ def main():
                                               logger=snoopy_logger,
                                               past_days=10)
 
-    car_number_statistic.send_excel_to_mailbox(snoopy_mailbox=snoopy_mailbox,
-                                               email_config=email_config,
-                                               path_config=path_config,
-                                               to=None)
+    car_number_statistic.send_car_number_excel_to_mailbox(snoopy_mailbox=snoopy_mailbox,
+                                                          email_config=email_config,
+                                                          path_config=path_config,
+                                                          to=None)
 
 
 if __name__ == "__main__":

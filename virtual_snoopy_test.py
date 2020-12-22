@@ -58,17 +58,17 @@ def main():
     # 任务安排
     # 【一】1.1提醒孟宝宝按时就餐-早餐
     schedule.every().monday.at("08:30").\
-        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder, (snoopy_mailbox, "breakfast"), "MealReminder")
+        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "breakfast"), "MealReminder")
     # 【一】1.3提醒孟宝宝按时就餐-午餐
     schedule.every().wednesday.at("11:30").\
-        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder, (snoopy_mailbox, "lunch"), "MealReminder")
+        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "lunch"), "MealReminder")
     # 【一】1.2提醒孟宝宝按时就餐-晚餐
     schedule.every().friday.at("17:00").\
-        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder, (snoopy_mailbox, "dinner"), "MealReminder")
+        do(create_thread_for_task, snoopy_logger, meal_reminder.send_meal_reminder_to_mailbox, (snoopy_mailbox, "dinner"), "MealReminder")
 
     # 【二】2.1 GWM生产环境车辆接入数检查
     schedule.every().monday.at("14:20").\
-        do(create_thread_for_task, snoopy_logger, car_number_statistic.send_excel_to_mailbox, (snoopy_mailbox, email_config, path_config), "CarNumberStatistic")
+        do(create_thread_for_task, snoopy_logger, car_number_statistic.send_car_number_excel_to_mailbox, (snoopy_mailbox, email_config, path_config), "CarNumberStatistic")
 
     snoopy_logger.logger.info("【successful】jobs已添加")
 
