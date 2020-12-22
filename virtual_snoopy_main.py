@@ -49,13 +49,13 @@ def main():
     snoopy_logger.logger.info("【successful】MealReminder对象生成，CarNumberStatistic对象生成")
 
     # 任务安排
-    # 【一】1.1提醒孟宝宝按时就餐-早餐
+    # 【一】1.1
     schedule.every().monday.at("08:30").\
         do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "breakfast"), "MealReminder")
-    # 【一】1.3提醒孟宝宝按时就餐-午餐
+    # 【一】1.2
     schedule.every().wednesday.at("11:30").\
         do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "lunch"), "MealReminder")
-    # 【一】1.2提醒孟宝宝按时就餐-晚餐
+    # 【一】1.3
     schedule.every().friday.at("17:00").\
         do(create_thread_for_task, meal_reminder.send_meal_reminder, (snoopy_mailbox, "dinner"), "MealReminder")
 
@@ -77,8 +77,6 @@ def main():
             print(e)
             snoopy_logger.logger.error(e)
             snoopy_logger.logger.error(traceback.format_exc())
-
-            traceback.print_exc(snoopy_logger.log_file_path)
         finally:
             time.sleep(40)
             count += 1
